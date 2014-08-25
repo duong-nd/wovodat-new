@@ -1,0 +1,23 @@
+{
+    "controller": "EruptionController",
+    "routing":
+    [
+        {
+            "request": "eruption_list",
+            "method": "loadEruptionList",
+            "params": 
+                [
+                    "vd_id"
+                ]
+                
+        },
+        {
+            "request": "eruption_forecast_list",
+            "method": "loadEruptionForecastList",
+            "params":
+                [
+                    "vd_id"
+                ]
+        }
+    ]
+}

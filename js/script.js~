@@ -1,0 +1,78 @@
+var ONE_YEAR =  ((new Date("0002-01-01T00:00:00")).getTime()-(new Date("0001-01-01T00:00:00")).getTime());
+
+function showTooltip(x, y, contents) {
+    $('<div id="tooltip">' + contents + '</div>').css( {
+        position: 'absolute',
+        display: 'none',
+        top: y + 5,
+        left: x + 20,
+        border: '1px solid #fdd',
+        padding: '2px',
+        'background-color': '#fee',
+        opacity: 0.8
+    }).appendTo("body").fadeIn(200);
+}
+
+$(document).ready(function() {
+	console.log("yo");
+
+	DataPuller.getVolcanoList({handler: loadVolcano});
+
+	/*
+	*	load the volcano list
+	*
+	*/
+	function loadVolcano(args) {
+		var data = args.data;
+		var volcanoSelect = $("#volcano");
+		volcanoSelect.empty();
+		volcanoSelect.append(new Option("...", ""));
+		for (var i = 0; i < data.length; i++) {
+			var option = new Option(data[i]['vd_id'] + ". "+ data[i]['vd_name'], data[i]['vd_id']);
+			volcanoSelect.append(option);
+		}
+	}
+
+	/*
+	*	when user select a volcano
+	*/
+	$("#volcano").change(function() {
+		eruptionSelect = $('#eruptionselect');
+		eruptionSelect.empty();
+		eruptionSelect.append(new Option("...", null));
+
+		var volcano = $("#volcano").val();
+		DataPuller.getEruptionList({vd_id: volcano, handler: plotEruption});
+		DataPuller.getEruptionForecastList({vd_id: volcano, handler: plotEruptionForecast});
+		
+	});
+
+	$("#eruptionselect").change(function() {
+		if ($('#eruptionselect option:selected').text() === "...") {return 0;}
+
+		stime = parseInt(eruptionSelect.val());
+		ntime = {min: stime, max: stime + ONE_YEAR};
+
+		$.extend(eruption_plot.getAxes().xaxis.options, ntime);
+		eruption_plot.setupGrid();
+		eruption_plot.draw();
+
+		$.extend(eruption_forecast_plot.getAxes().xaxis.options, ntime);
+		eruption_forecast_plot.setupGrid();
+		eruption_forecast_plot.draw();
+
+
+	});
+	var sync = function () {
+		stime = eruption_plot.getAxes().xaxis.options.min;
+		etime = eruption_plot.getAxes().xaxis.options.max;
+		ntime = {min: stime, max: etime};
+		$.extend(eruption_forecast_plot.getAxes().xaxis.options, ntime);
+		eruption_forecast_plot.setupGrid();
+		eruption_forecast_plot.draw();
+
+	}
+	$("#eruption_graph").bind("plotpan", sync);
+
+	$("#eruption_graph").bind("plotzoom", sync);
+});

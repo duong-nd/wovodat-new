@@ -1,0 +1,15 @@
+{
+    "controller": "DataSeriesController",
+    "routing":
+    [
+        {
+            "request": "data_series_list",
+            "method": "loadDataList",
+            "params": 
+                [
+                    "vd_id"
+                ]
+                
+        }
+    ]
+}

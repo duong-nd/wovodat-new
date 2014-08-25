@@ -1,0 +1,46 @@
+body {
+	font-family: lucida,sans-serif;
+	font-size: 11px;
+}
+
+#eruption_graph {
+	display: block;
+	width: 800px;
+	height: 200px;
+}
+
+#eruption_forecast_graph {
+	display: block;
+	width: 800px;
+	height: 60px;
+}
+/*
+#data_series_checkbox {
+    height:120px;
+    overflow:scroll;
+    overflow-x:hidden;
+}
+
+#data_series_box {	
+	background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #3B3C3E;
+    font-size: 12px;
+    font-weight: bold;
+	width: 800px;
+    padding: 10px 7px 5px;
+}
+*/
+#data_series_graph1 {
+	display: block;
+	width: 800px;
+	height: 200px;
+}
+
+
+#data_series_overview {
+	display: block;
+	width: 800px;
+	height: 150px;
+}

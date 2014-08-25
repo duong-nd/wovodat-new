@@ -1,0 +1,11 @@
+{
+    "controller": "VolcanoController",
+    "routing":
+    [
+        {
+            "request": "volcano_list",
+            "method": "loadVolcanoList",
+            "params": []
+        }
+    ]
+}
